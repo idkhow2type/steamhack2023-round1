@@ -1,0 +1,99 @@
+@import url('./base.css');
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    background-color: var(--d-green);
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--light);
+}
+
+header > h1 {
+    font-size: 50px;
+}
+header > q {
+    margin: 0;
+    font-size: 25px;
+}
+
+.process-card {
+    height: 90vh;
+    padding: 5em;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 5em;
+}
+
+.process-card > * {
+    border-radius: 1em;
+}
+
+.process-card input[type='file']{
+    opacity: 0;
+}
+
+.process-card label {
+    border: 5px dashed var(--green);
+    background-color: rgba(88, 243, 137, 0.5); /* lord forgive me */
+    overflow: hidden;
+    font-size: 25px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.process-card label:hover {
+    cursor: pointer;
+}
+.process-card label *:hover {
+    cursor: pointer;
+}
+.process-card label .cross:has(+input[type='file']:focus){
+    filter: brightness(2);
+}
+
+.process-card label .cross {
+    --size: 3em;
+    width: var(--size);
+    height: var(--size);
+    position: relative;
+    margin: 1em;
+}
+.process-card label .cross::before,
+.process-card label .cross::after {
+    content: '';
+    display: block;
+    background-color: var(--d-green);
+    position: absolute;
+    border-radius: 9999px;
+}
+.process-card label .cross::before {
+    width: 100%;
+    height: calc(var(--size) / 8);
+    top: 50%;
+    transform: translateY(-50%);
+}
+.process-card label .cross::after {
+    height: 100%;
+    width: calc(var(--size) / 8);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.process-card code {
+    background-color: var(--dark);
+    color: var(--light);
+    padding: 1em;
+}

@@ -1,0 +1,13 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --green: rgb(8, 221, 76);
+    --l-green: rgb(60, 228, 113);
+    --d-green: rgb(18, 106, 46);
+    --dark: #2c2c2c;
+    --light: #f0f0f0;
+}
