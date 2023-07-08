@@ -6,8 +6,31 @@
 
 :root {
     --green: rgb(8, 221, 76);
-    --l-green: rgb(60, 228, 113);
+    --l-green: rgb(119, 237, 157);
     --d-green: rgb(18, 106, 46);
     --dark: #2c2c2c;
     --light: #f0f0f0;
+    --grey: #555;
+}
+
+::-webkit-scrollbar {
+    --size: 0.6em;
+    width: var(--size);
+    height: var(--size);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark);
+    opacity: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    opacity: 0.5;
+    background-color: var(--grey);
+}
+
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-corner,
+::-webkit-resizer {
+    display: none;
 }

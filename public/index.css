@@ -35,13 +35,13 @@ header > q {
     border-radius: 1em;
 }
 
-.process-card input[type='file']{
+.process-card input[type='file'] {
     opacity: 0;
 }
 
 .process-card label {
     border: 5px dashed var(--green);
-    background-color: rgba(88, 243, 137, 0.5); /* lord forgive me */
+    background-color: var(--l-green); /* lord forgive me */
     overflow: hidden;
     font-size: 25px;
     position: relative;
@@ -60,7 +60,7 @@ header > q {
 .process-card label *:hover {
     cursor: pointer;
 }
-.process-card label .cross:has(+input[type='file']:focus){
+.process-card label .cross:has(+ input[type='file']:focus) {
     filter: brightness(2);
 }
 
@@ -95,5 +95,46 @@ header > q {
 .process-card code {
     background-color: var(--dark);
     color: var(--light);
+    padding-top: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.process-card code .tool-bar {
+    display: flex;
+    width: 100%;
+    height: 3em;
     padding: 1em;
+    margin: 0;
+    border-bottom: 1px solid var(--grey);
+    box-shadow: 0 2px 1em black;
+    align-items: center;
+    position: relative;
+}
+
+.process-card code button {
+    background: none;
+    border: none;
+    fill: var(--green);
+    position: absolute;
+    right: 0;
+    height: 100%;
+    aspect-ratio: 1/1; /* tHiS wEbSiTe WoRks BeSt On ChRoMe */
+    padding: 0.4em;
+    margin: 0;
+    cursor: pointer;
+}
+
+.process-card code button svg {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.process-card code pre {
+    margin: 0;
+    padding: 1em;
+    overflow-y: auto;
+    height: 100%;
+    flex: 1;
 }
