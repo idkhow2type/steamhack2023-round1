@@ -6,7 +6,10 @@ body {
 }
 
 header {
-    background-color: var(--d-green);
+    background-image: linear-gradient(rgba(var(--d-green-val),0.7), rgba(var(--d-green-val),0.7)),
+        url('assets/banner.jpg');
+    background-size: cover;
+    position: relative;
     height: 70vh;
     display: flex;
     flex-direction: column;
