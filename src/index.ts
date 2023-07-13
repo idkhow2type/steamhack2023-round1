@@ -43,7 +43,7 @@ app.post('/makedoc', upload.any(), async (req, res) => {
             'README.md',
             Buffer.from(
                 await thread.sendMessage(
-                    'Write a README.md for the project containing all those files'
+                    'Write a README.md for the project containing all those files. Describe what the project is and what it does'
                 )
             )
         );

@@ -5,14 +5,51 @@ fileInput.addEventListener('change', async (e) => {
     const preview = document.querySelector('.preview pre');
     const submit = document.querySelector('.preview button');
 
-    preview.innerText = await file.text();
-    preview.parentElement.querySelector('h3').innerText = file.name; // this is hacky idfc
+    if (file.name.endsWith('.zip')) {
+        const zip = new JSZip();
 
-    submit.addEventListener('click', makedoc.bind(null, file));
+        // Read the zip file
+        const zipData = await zip.loadAsync(file);
+
+        // Display the tree view of the file structure
+        const treeView = createTreeView(zipData, '');
+        preview.innerText = treeView;
+
+        // Reset the submit button event listener
+        submit.removeEventListener('click', makedoc);
+        submit.addEventListener('click', makedoc.bind(null, file));
+    } else {
+        // For non-zip files, display the content as text
+        preview.innerText = await file.text();
+    }
+
+    preview.parentElement.querySelector('h3').innerText = file.name;
 
     fileInput.value = null;
     fileInput.blur();
 });
+
+function createTreeView(zipData, indent) {
+    let treeView = '';
+
+    const zipObjs = zipData.filter((path) => !/^([\w.]+\/)+[\w.]+$/.test(path));
+    zipObjs.forEach((zipEntry, i) => {
+        const relativePath = zipEntry.name;
+        const isDirectory = zipEntry.dir;
+        const fileName = isDirectory ? relativePath : zipEntry.name;
+
+        const isLast = i === zipObjs.length - 1;
+        treeView += indent + (isLast ? '└── ' : '├── ') + fileName + '\n';
+
+        if (isDirectory) {
+            const subZipData = zipData.folder(relativePath);
+            const subIndent = indent + (isLast ? '    ' : '│   ');
+            treeView += createTreeView(subZipData, subIndent);
+        }
+    });
+
+    return treeView;
+}
 
 function downloadFile(arrayBuffer, fileName) {
     // Create a Blob from the ArrayBuffer
@@ -45,9 +82,15 @@ function makedoc(file, e) {
     fetch('/makedoc', {
         method: 'POST',
         body: formData,
-    }).then(async (res) => {
-        preview.classList.remove('loading')
-        downloadFile(await res.arrayBuffer(), file.name);
-    });
-    preview.classList.add('loading')
+    })
+        .then(async (res) => {
+            downloadFile(await res.arrayBuffer(), file.name);
+        })
+        .catch((err) => {
+            alert(err);
+        })
+        .finally(() => {
+            preview.classList.remove('loading');
+        });
+    preview.classList.add('loading');
 }
