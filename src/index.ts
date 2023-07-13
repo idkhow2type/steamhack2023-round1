@@ -1,7 +1,10 @@
+import 'dotenv/config';
 import express from 'express';
 import cookie from 'cookie-parser';
 import multer from 'multer';
-import ask from 'gpt4free-ts';
+import { User, Thread } from 'chatgptdemo-api';
+import comment from './comment.js';
+import modifyFilesInZip from './zip.js';
 
 const app: express.Application = express();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -24,18 +27,31 @@ app.post('/makedoc', upload.any(), async (req, res) => {
         res.status(400).send('No file uploaded');
         return;
     }
-    const file = req.files[0];
+    const file: Express.Multer.File = req.files[0];
 
-    const commented = (
-        await ask(
-            file.buffer.toString() +
-                "\n\nwrite some comments embedded in this code. DO NOT give any additional message, don't give a description or overview of the code, don't even say anything like 'Here's the commented code', ONLY respond with the commented code in a code block WITHOUT specifying the language"
-        )
-    ).replace(/^```[\s\S]+?```$/gm, (match) =>
-        match.replace(/^```[\s\n]*|[\s\n]*```$/g, '')
-    ); // im sorry
+    const user = new User(req.cookies['chat_user']);
+    await user.initialise();
+    const thread = new Thread({ name: file.originalname }, user);
+    await thread.initialise();
 
-    res.send(commented);
+    if (file.originalname.endsWith('.zip')) {
+        const zip = await modifyFilesInZip(file.buffer, async (data) =>
+            comment(data, thread)
+        );
+
+        zip.addFile(
+            'README.md',
+            Buffer.from(
+                await thread.sendMessage(
+                    'Write a README.md for the project containing all those files'
+                )
+            )
+        );
+
+        res.send(zip.toBuffer())
+    } else {
+        res.send(Buffer.from(await comment(file.buffer.toString(), thread)));
+    }
 });
 
 app.get('*', (req, res) => {

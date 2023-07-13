@@ -138,3 +138,28 @@ header > q {
     height: 100%;
     flex: 1;
 }
+
+.process-card code pre.loading {
+    font-size: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.process-card code pre.loading::before {
+    content: '';
+    width: 10%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 5px solid var(--light);
+    border-top-color: var(--grey);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
