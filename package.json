@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc & node .",
+    "build": "tsc",
     "dev": "nodemon src/index.ts",
     "debug": "ts-node src/index.ts"
   },

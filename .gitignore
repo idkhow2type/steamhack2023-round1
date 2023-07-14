@@ -3,3 +3,4 @@ dist
 *.zip
 package-lock.json
 .env
+*.mp4
