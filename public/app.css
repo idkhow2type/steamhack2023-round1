@@ -1,12 +1,14 @@
 @import url('./base.css');
 
 body {
-    padding: 0;
-    margin: 0;
+    font-family: 'Kanit', sans-serif;
 }
 
 header {
-    background-image: linear-gradient(rgba(var(--d-green-val),0.7), rgba(var(--d-green-val),0.7)),
+    background-image: linear-gradient(
+            rgba(var(--d-primary-val), 0.7),
+            rgba(var(--d-primary-val), 0.7)
+        ),
         url('assets/banner.jpg');
     background-size: cover;
     position: relative;
@@ -43,8 +45,8 @@ header > q {
 }
 
 .process-card label {
-    border: 5px dashed var(--green);
-    background-color: var(--l-green); /* lord forgive me */
+    border: 5px dashed var(--primary);
+    background-color: var(--l-primary); /* lord forgive me */
     overflow: hidden;
     font-size: 25px;
     position: relative;
@@ -78,7 +80,7 @@ header > q {
 .process-card label .cross::after {
     content: '';
     display: block;
-    background-color: var(--d-green);
+    background-color: var(--primary);
     position: absolute;
     border-radius: 9999px;
 }
@@ -96,12 +98,17 @@ header > q {
 }
 
 .process-card code {
+    font-size: 12px;
     background-color: var(--dark);
     color: var(--light);
     padding-top: 0;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    font-family: 'IBM Plex Mono', monospace;
+}
+.process-card code * {
+    font-family: inherit;
 }
 .process-card code .tool-bar {
     display: flex;
@@ -118,7 +125,6 @@ header > q {
 .process-card code button {
     background: none;
     border: none;
-    fill: var(--green);
     position: absolute;
     right: 0;
     height: 100%;
@@ -129,6 +135,7 @@ header > q {
 }
 
 .process-card code button svg {
+    fill: var(--l-primary);
     margin: 0;
     width: 100%;
     height: 100%;

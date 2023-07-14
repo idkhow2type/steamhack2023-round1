@@ -1,10 +1,14 @@
-# Game plan
-- idk
-- you know how we have to write documentation?
-- like this?
-- yeah, i dont like that
-- so were making the computer do it
-- using ai obviously
-- and i dont have money
-- so were using this free chatgpt library thing
-- openai pls dont sue me
+# Documentinator
+
+## Description
+[no](views/dashboard.ejs)
+
+## Usage
+1. Tải NodeJS, khuyến nghị phiên bản mới nhất (v19.6.0+)
+1. Mở terminal trong folder chứa file này
+2. Chạy
+```bat
+npm i
+npm run build
+```
+3. Vào `localhost:3000` và trải nghiệm sản phẩm

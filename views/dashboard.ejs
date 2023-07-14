@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Documentinator</title>
+        <link rel="stylesheet" href="dashboard.css" />
+    </head>
+    <body>
+        <section>
+            <h1>Documentinator</h1>
+            <p>
+                Đây là một trang web nhỏ giúp bạn viết comment trong code và
+                README.md cho project của mình.
+            </p>
+        </section>
+        <section>
+            <h2>Sử dụng</h2>
+            <p>Để sử dụng Documentinator, làm theo các bước sau:</p>
+            <ol>
+                <li>Vào route <a href="/app">/app</a>.</li>
+                <li>
+                    Chọn một file code hoặc một file zip từ máy tính của bạn.
+                </li>
+                <li>
+                    File của bạn sẽ hiển thị trong phần xem trước (preview).
+                </li>
+                <li>
+                    Khi bạn đã chắc chắn rằng bạn đã chọn đúng file, nhấn vào
+                    dấu tick (✓).
+                </li>
+                <li>Chờ đợi cho quá trình xử lý file hoàn tất.</li>
+            </ol>
+        </section>
+
+        <section class="api">
+            <h2>API</h2>
+            <p>Dưới đây là danh sách các API mà Documentinator cung cấp:</p>
+            <article>
+                <h3>/</h3>
+                <p><strong>Method:</strong> GET</p>
+                <p>
+                    <strong>Response:</strong> Chuyển hướng sang
+                    <a href="/dashboard">/dashboard</a>
+                </p>
+            </article>
+            <article>
+                <h3>/dashboard</h3>
+                <p><strong>Method:</strong> GET</p>
+                <p><strong>Response:</strong> Trang HTML</p>
+            </article>
+            <article>
+                <h3>/app</h3>
+                <p><strong>Method:</strong> GET</p>
+                <p><strong>Response:</strong> Trang HTML</p>
+            </article>
+            <article>
+                <h3>/makedoc</h3>
+                <p><strong>Method:</strong> POST</p>
+                <p><strong>Response:</strong> Nội dung file</p>
+            </article>
+        </section>
+    </body>
+</html>

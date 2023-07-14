@@ -19,7 +19,15 @@ app.set('view engine', 'ejs');
 // routes start here
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.redirect('dashboard');
+});
+
+app.get('/dashboard', (req, res) => {
+    res.render('dashboard');
+});
+
+app.get('/app', (req, res) => {
+    res.render('app');
 });
 
 app.post('/makedoc', upload.any(), async (req, res) => {
@@ -29,28 +37,37 @@ app.post('/makedoc', upload.any(), async (req, res) => {
     }
     const file: Express.Multer.File = req.files[0];
 
-    const user = new User(req.cookies['chat_user']);
-    await user.initialise();
-    const thread = new Thread({ name: file.originalname }, user);
-    await thread.initialise();
+    try {
+        const user = new User(req.cookies['chat_user']);
+        await user.initialise();
+        const thread = new Thread({ name: file.originalname }, user);
+        await thread.initialise();
 
-    if (file.originalname.endsWith('.zip')) {
-        const zip = await modifyFilesInZip(file.buffer, async (data) =>
-            comment(data, thread)
-        );
+        res.cookie('chat_user', req['chat_user'] ?? user.session);
 
-        zip.addFile(
-            'README.md',
-            Buffer.from(
-                await thread.sendMessage(
-                    'Write a README.md for the project containing all those files. Describe what the project is and what it does'
+        if (file.originalname.endsWith('.zip')) {
+            const zip = await modifyFilesInZip(file.buffer, async (data) =>
+                comment(data, thread)
+            );
+
+            zip.addFile(
+                'README.md',
+                Buffer.from(
+                    await thread.sendMessage(
+                        'Write a README.md for the project containing all those files. Describe what the project is and what it does'
+                    )
                 )
-            )
-        );
+            );
 
-        res.send(zip.toBuffer())
-    } else {
-        res.send(Buffer.from(await comment(file.buffer.toString(), thread)));
+            res.send(zip.toBuffer());
+        } else {
+            res.send(
+                Buffer.from(await comment(file.buffer.toString(), thread))
+            );
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(error);
     }
 });
 
