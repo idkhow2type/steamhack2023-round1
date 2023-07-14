@@ -10,6 +10,7 @@
 ```bat
 npm i
 npm run build
+npm run start
 ```
 3. Vào `localhost:3000` và trải nghiệm sản phẩm
 
