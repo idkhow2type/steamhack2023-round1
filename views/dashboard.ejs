@@ -35,26 +35,28 @@
 
         <section class="api">
             <h2>API</h2>
-            <p>Dưới đây là danh sách các API mà Documentinator cung cấp:</p>
-            <article>
-                <h3>/</h3>
+            <p>
+                Dưới đây là danh sách các API route mà Documentinator cung cấp:
+            </p>
+            <article id="root">
+                <h3><a href="/">/</a></h3>
                 <p><strong>Method:</strong> GET</p>
                 <p>
                     <strong>Response:</strong> Chuyển hướng sang
-                    <a href="/dashboard">/dashboard</a>
+                    <a href="#dashboard">dashboard</a>
                 </p>
             </article>
-            <article>
-                <h3>/dashboard</h3>
+            <article id="dashboard">
+                <h3><a href="/dashboard">/dashboard</a></h3>
                 <p><strong>Method:</strong> GET</p>
                 <p><strong>Response:</strong> Trang HTML</p>
             </article>
-            <article>
-                <h3>/app</h3>
+            <article id="app">
+                <h3><a href="/app">/app</a></h3>
                 <p><strong>Method:</strong> GET</p>
                 <p><strong>Response:</strong> Trang HTML</p>
             </article>
-            <article>
+            <article id="makedoc">
                 <h3>/makedoc</h3>
                 <p><strong>Method:</strong> POST</p>
                 <p><strong>Response:</strong> Nội dung file</p>
